@@ -116,9 +116,6 @@
     color: #666666;
   }
 
-  .active {
-    background-color: #247b7b;
-  }
 
   @media screen and (max-width: 640px) {
     .hide {

@@ -3,14 +3,12 @@ import SearchAnything from "./SearchAnything";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  createCampaign,
-  successModalFtn
-} from "@/features/campaignSlice";
+import { createCampaign, successModalFtn } from "@/features/campaignSlice";
 import { useNavigate } from "react-router-dom";
 
 import { MdToggleOff } from "react-icons/md";
 import { MdToggleOn } from "react-icons/md";
+import { IoMdStar } from "react-icons/io";
 
 import success from "../assets/success.png";
 
@@ -72,7 +70,6 @@ function NewCampaign() {
     // console.log(inputs);
     dispatch(createCampaign(inputs)).then(() => {
       dispatch(successModalFtn());
-      
     });
   }
 
@@ -81,7 +78,9 @@ function NewCampaign() {
       <div>
         <div className="">
           <SearchAnything />
-          <form className="h-[100vh] mx-auto w-[75vw] px-3" onSubmit={submitFtn}>
+          <form
+            className="h-[100vh] mx-auto w-[75vw] px-3"
+            onSubmit={submitFtn}>
             <div className="flex flex-col gap-2">
               <div className="py-2">
                 <h2 className="campaign-info font-bold sm:text-[20px] text-[15px]">
@@ -90,16 +89,20 @@ function NewCampaign() {
               </div>
 
               <div className="py-2 flex flex-col gap-1">
-                <p className="text-[12px] sm:text-[14px] font-medium text-[#666666]">
-                  Campaign Name
-                </p>
+                <div className="flex items-center gap-1">
+                  <p className="text-[12px] sm:text-[14px] font-medium text-[#666666]">
+                    Campaign Name
+                  </p>
+                  <IoMdStar className="text-[5px] text-red-500" />
+                </div>
                 <Input
+                  required
                   type="text"
                   placeholder="e.g The Future is now"
                   onChange={onChangeHandle}
                   value={inputs.campaignName}
                   name="campaignName"
-                  className="text-[10px] sm:placeholder:text-[14px] placeholder:text-[#999999]"
+                  className="text-[12px] sm:placeholder:text-[14px] placeholder:text-[#999999]"
                 />
               </div>
               <div className="py-2">
@@ -108,6 +111,7 @@ function NewCampaign() {
                     Campaign Description
                   </p>
                   <textarea
+                    required
                     rows="4"
                     name="campaignDescription"
                     value={inputs.campaignDescription}
@@ -118,10 +122,14 @@ function NewCampaign() {
                 </div>
                 <div className="sm:flex sm:items-center sm:justify-between py-2">
                   <div className="flex flex-col gap-1 sm:w-[20vw] cursor-pointer">
-                    <p className="text-[12px] sm:text-[14px] font-medium text-[#666666] ">
-                      Start Date
-                    </p>
+                    <div className="flex items-center gap-1">
+                      <p className="text-[12px] sm:text-[14px] font-medium text-[#666666] ">
+                        Start Date
+                      </p>
+                      <IoMdStar className="text-[5px] text-red-500" />
+                    </div>
                     <Input
+                      required
                       type="datetime-local"
                       name="startDate"
                       value={inputs.startDate}
@@ -134,6 +142,7 @@ function NewCampaign() {
                       End Date
                     </p>
                     <Input
+                      required
                       type="datetime-local"
                       name="endDate"
                       value={inputs.endDate}
@@ -159,9 +168,12 @@ function NewCampaign() {
                 </div>
 
                 <div className="flex flex-col gap-1 py-2">
-                  <p className="text-[12px] sm:text-[14px] font-medium text-[#666666]">
-                    Linked Keywords
-                  </p>
+                  <div className="flex items-center gap-1">
+                    <p className="text-[12px] sm:text-[14px] font-medium text-[#666666]">
+                      Linked Keywords
+                    </p>
+                    <IoMdStar className="text-[5px] text-red-500" />
+                  </div>
                   <div className="h-[12vh] pt-3 pl-3 rounded-md border border-[#F0F4F4]">
                     <div className="flex items-center gap-2">
                       {inputs.linkedKeywords.map((keyword, index) => (
@@ -195,6 +207,7 @@ function NewCampaign() {
                       ))}
                     </div>
                     <Input
+                      
                       type="text"
                       placeholder="To add keywords, type your keyword and press enter"
                       value={keyword}

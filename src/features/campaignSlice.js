@@ -5,6 +5,7 @@ const initialState = {
     openModal: false,
     id: "",
     successModal: false,
+    delModal: false,
     openDetailsModal: false,
     details: {}
 };
@@ -22,6 +23,9 @@ export const campaignSlice = createSlice({
     },
     successModalFtn: (state)=>{
       state.successModal = !state.successModal
+    },
+    deleteModalFtn: (state)=>{
+      state.delModal = !state.delModal
     },
     openModalAndGetDetailsFtn: (state, action)=>{
       state.openDetailsModal = !state.openDetailsModal
@@ -119,6 +123,6 @@ export const createCampaign = createAsyncThunk(
   }
 );
 
-export const { getCampaignNameAndId, openModalFtn, successModalFtn, openModalAndGetDetailsFtn } = campaignSlice.actions;
+export const { getCampaignNameAndId, openModalFtn, successModalFtn, openModalAndGetDetailsFtn, deleteModalFtn } = campaignSlice.actions;
 
 export default campaignSlice.reducer;

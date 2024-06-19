@@ -4,6 +4,7 @@ import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
 
 import vector from "../assets/Vector.png";
 import logo from "../assets/arcticons_google-messages.png";
+
 import add from "../assets/material-symbols_add.png";
 import campaign from "../assets/material-symbols_campaign-outline.png";
 import dashboard from "../assets/ri_dashboard-2-line.png";
@@ -15,14 +16,19 @@ import { GiCancel } from "react-icons/gi";
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCampaign, openModalFtn } from "@/features/campaignSlice";
+import {
+  deleteCampaign,
+  deleteModalFtn,
+  openModalFtn,
+  successModalFtn
+} from "@/features/campaignSlice";
 
 function LayOutPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
-  const { id, campaignName, openModal } = useSelector(
+  const { id, campaignName, openModal, delModal } = useSelector(
     (state) => state.campaigns
   );
 
@@ -85,8 +91,8 @@ function LayOutPage() {
                 </header>
               </nav>
               <ul>
-                <MenuItem className="py-2">
-                  <Link to="/add-campaign">
+                <Link to="/add-campaign">
+                  <MenuItem className="py-2">
                     <li className=" bg-[#247B7B] flex items-center  gap-2 py-2 rounded-md  px-5 ">
                       <div className="w-[15px]">
                         <img src={add} alt="icon add" className="w-full" />
@@ -95,8 +101,8 @@ function LayOutPage() {
                         New Campaign
                       </p>
                     </li>
-                  </Link>
-                </MenuItem>
+                  </MenuItem>
+                </Link>
                 <Link to="/">
                   <MenuItem className="py-2">
                     <li className=" flex items-center  gap-2 py-2 px-5 rounded-md">
@@ -113,7 +119,7 @@ function LayOutPage() {
                     </li>
                   </MenuItem>
                 </Link>
-                <Link activeClassName="active" to="/campaign">
+                <Link to="/campaign">
                   <MenuItem className="py-2">
                     <li className=" flex  px-5 items-center  gap-2 py-2 rounded-md">
                       <div className="sm:w-[20px] w-[15px]">
@@ -186,7 +192,7 @@ function LayOutPage() {
               )}
             </Menu>
           </Sidebar>
-          <main className="w-full px-2">
+          <main className="w-full">
             <Outlet />
           </main>
         </div>
@@ -224,11 +230,41 @@ function LayOutPage() {
                     e.preventDefault();
                     e.stopPropagation();
                     dispatch(deleteCampaign(id)).then(() => {
+                      dispatch(successModalFtn());
                       dispatch(openModalFtn());
-                      navigate("/campaign");
+                      // navigate("/campaign");
                     });
                   }}>
                   Delete Campaign
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {delModal && (
+        <div className="bg-modal fixed bottom-0 top-0 right-0 left-0 z-10">
+          <div className="flex h-[100vh]  justify-center items-center flex-col">
+            <div className=" bg-white py-[9vh] flex flex-col items-center gap-[5vh] px-[12vw] rounded-md">
+              <div>
+                <p className="font-bold  text-[14px] sm:text-[16px]">
+                  Campaign Deleted
+                </p>
+              </div>
+              <p className="text-[12px] sm:text-[14px] font-bold text-[#666666]">
+                {campaignName} campaign has been deleted!
+              </p>
+              <div className="flex items-center gap-3">
+                <Button
+                  className="px-5 py-1 bg-[#247B7B] text-white text-[12px] sm:text-[14px]"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dispatch(deleteModalFtn());
+                    navigate("/campaign");
+                  }}>
+                  Go Back to campaign list
                 </Button>
               </div>
             </div>

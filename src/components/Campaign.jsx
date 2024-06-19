@@ -2,6 +2,7 @@ import { SkeletonDemo } from "./SkeletonDemo";
 import { Link } from "react-router-dom";
 import {
   deleteCampaign,
+  deleteModalFtn,
   openModalAndGetDetailsFtn
 } from "@/features/campaignSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,9 +36,11 @@ import ReactPaginate from "react-paginate";
 import moment from "moment";
 
 function Campaign() {
-  const { openDetailsModal, details } = useSelector((state) => state.campaigns);
+  const { openDetailsModal, details, delModal, campaignName } = useSelector(
+    (state) => state.campaigns
+  );
   const dispatch = useDispatch();
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["campaign"],
     queryFn: getCampaigns
   });
@@ -45,7 +48,8 @@ function Campaign() {
   function delFtn(id) {
     // console.log(id, "id");
     dispatch(deleteCampaign(id)).then(() => {
-      location.reload();
+      dispatch(deleteModalFtn());
+      refetch();
     });
   }
 
@@ -53,6 +57,10 @@ function Campaign() {
     const getId = data.find((data) => data.id === id);
     dispatch(openModalAndGetDetailsFtn(getId));
   }
+
+  const handleGoBack = () => {
+    dispatch(deleteModalFtn());
+  };
 
   return (
     <div>
@@ -104,32 +112,30 @@ function Campaign() {
           </TableHeader>
           <TableBody>
             {isLoading ? (
-              <div>
-                <TableRow>
-                  <TableCell>
-                    <SkeletonDemo />
-                  </TableCell>
-                  <TableCell>
-                    <SkeletonDemo />
-                  </TableCell>
-                  <TableCell>
-                    <SkeletonDemo />
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center sm:gap-5 gap-2">
-                      <div className="cursor-pointer">
-                        <img src={hide} alt="hide-image" />
-                      </div>
-                      <div className="cursor-pointer">
-                        <img src={edit} alt="edit-image" />
-                      </div>
-                      <div className="cursor-pointer">
-                        <img src={del} alt="delete-image" />
-                      </div>
+              <TableRow>
+                <TableCell>
+                  <SkeletonDemo />
+                </TableCell>
+                <TableCell>
+                  <SkeletonDemo />
+                </TableCell>
+                <TableCell>
+                  <SkeletonDemo />
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center sm:gap-5 gap-2">
+                    <div className="cursor-pointer">
+                      <img src={hide} alt="hide-image" />
                     </div>
-                  </TableCell>
-                </TableRow>
-              </div>
+                    <div className="cursor-pointer">
+                      <img src={edit} alt="edit-image" />
+                    </div>
+                    <div className="cursor-pointer">
+                      <img src={del} alt="delete-image" />
+                    </div>
+                  </div>
+                </TableCell>
+              </TableRow>
             ) : (
               Array.isArray(data) &&
               data.map((campaign) => {
@@ -286,6 +292,30 @@ function Campaign() {
                     e.stopPropagation();
                     dispatch(openModalAndGetDetailsFtn());
                   }}>
+                  Go Back to campaign list
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {delModal && (
+        <div className="bg-modal fixed bottom-0 top-0 right-0 left-0 z-10">
+          <div className="flex h-[100vh]  justify-center items-center flex-col">
+            <div className=" bg-white py-[9vh] flex flex-col items-center gap-[5vh] px-[12vw] rounded-md">
+              <div>
+                <p className="font-bold  text-[14px] sm:text-[16px]">
+                  Campaign Deleted
+                </p>
+              </div>
+              <p className="text-[12px] sm:text-[14px] font-bold text-[#666666]">
+                {campaignName} campaign has been deleted!
+              </p>
+              <div className="flex items-center gap-3">
+                <Button
+                  className="px-5 py-1 bg-[#247B7B] text-white text-[12px] sm:text-[14px]"
+                  onClick={() => handleGoBack()}>
                   Go Back to campaign list
                 </Button>
               </div>
