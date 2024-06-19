@@ -81,7 +81,7 @@ function NewCampaign() {
       <div>
         <div className="">
           <SearchAnything />
-          <form className="h-[100vh] mx-auto w-[75vw]" onSubmit={submitFtn}>
+          <form className="h-[100vh] mx-auto w-[75vw] px-3" onSubmit={submitFtn}>
             <div className="flex flex-col gap-2">
               <div className="py-2">
                 <h2 className="campaign-info font-bold sm:text-[20px] text-[15px]">
