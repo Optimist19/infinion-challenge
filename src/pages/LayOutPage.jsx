@@ -83,8 +83,8 @@ function LayOutPage() {
                   <div className="">
                     <img src={logo} alt="the site's logo" className="full" />
                   </div>
-                  <h1
-                    className="text-[32px] text-[#3B247B] font-bold"
+                  <h1  
+                    className="text-[32px] text-[#3B247B] font-bold logo"
                     style={style}>
                     Scrutz
                   </h1>

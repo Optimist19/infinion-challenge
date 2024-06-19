@@ -69,9 +69,14 @@
 @layer base {
   * {
     @apply border-border;
+    font-family: "Nunito Sans", sans-serif;
   }
   body {
     @apply bg-background text-foreground;
+  }
+  
+  .logo {
+    font-family: "Work Sans", sans-serif;
   }
 
   .text-color {
@@ -115,7 +120,6 @@
     padding-left: 2vw;
     color: #666666;
   }
-
 
   @media screen and (max-width: 640px) {
     .hide {
