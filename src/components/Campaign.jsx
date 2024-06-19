@@ -42,8 +42,6 @@ function Campaign() {
     queryFn: getCampaigns
   });
 
-
-
   function delFtn(id) {
     // console.log(id, "id");
     dispatch(deleteCampaign(id)).then(() => {
@@ -212,63 +210,69 @@ function Campaign() {
             <div className=" bg-white py-[9vh] flex flex-col items-center gap-[5vh] px-[12vw] rounded-md">
               <div className="text-[12px] sm:text-[14px] flex flex-col gap-1">
                 <p>
-                  Campaign ID:{" "}
+                  Campaign ID:
                   <span className="font-bold  text-[#247B7B]">
                     {details.id}
                   </span>
                 </p>
                 <p>
-                  Campaign Name:{" "}
+                  Campaign Name:
                   <span className="font-bold  text-[#247B7B]">
                     {details.campaignName}
                   </span>
                 </p>
                 <p>
-                  Campaign Description:{" "}
+                  Campaign Description:
                   <span className="font-bold  text-[#247B7B]">
                     {details.campaignDescription}
                   </span>
                 </p>
                 <p>
-                  Campaign Start Date:{" "}
+                  Campaign Start Date:
                   <span className="font-bold  text-[#247B7B]">
                     {moment(details.startDate).format("DD-MM-YYYY")}
                   </span>
                 </p>
                 <p>
-                  Campaign End Date:{" "}
+                  Campaign End Date:
                   <span className="font-bold  text-[#247B7B]">
                     {moment(details.startDate).format("DD-MM-YYYY")}
                   </span>
                 </p>
                 <p>
-                  Campaign Digest Campaign:{" "}
+                  Campaign Digest Campaign:
                   <span className="font-bold  text-[#247B7B]">
                     {details.digestCampaign}
                   </span>
                 </p>
                 <div>
                   Campaign linked Keywords:
-                  {details.linkedKeywords.map((list, i) => {
-                    return (
-                      <ul key={i}>
-                        <li>
-                          <span className="font-bold  text-[#247B7B]">
-                            {list}
-                          </span>
-                        </li>
-                      </ul>
-                    );
-                  })}
+                  {details.linkedKeywords.length === 0 ? (
+                    <p className="text-red-600">Null</p>
+                  ) : (
+                    <div>
+                      {details.linkedKeywords.map((list, i) => {
+                        return (
+                          <ul key={i}>
+                            <li>
+                              <span className="font-bold  text-[#247B7B]">
+                                {list}
+                              </span>
+                            </li>
+                          </ul>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
                 <p>
-                  Campaign DailyDigest:{" "}
+                  Campaign DailyDigest:
                   <span className="font-bold  text-[#247B7B]">
                     {details.dailyDigest}
                   </span>
                 </p>
                 <p>
-                  Campaign CampaignStatus:{" "}
+                  Campaign CampaignStatus:
                   <span className="font-bold  text-[#247B7B]">
                     {details.campaignStatus}
                   </span>
