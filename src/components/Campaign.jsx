@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import {
   deleteCampaign,
   deleteModalFtn,
-  openModalAndGetDetailsFtn
+  openModalAndGetDetailsFtn,
+  openModalFtn
 } from "@/features/campaignSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -45,11 +46,17 @@ function Campaign() {
     queryFn: getCampaigns
   });
 
+
+
+
+  
   function delFtn(id) {
     // console.log(id, "id");
     dispatch(deleteCampaign(id)).then(() => {
+      dispatch(openModalFtn())
       dispatch(deleteModalFtn());
       refetch();
+      
     });
   }
 

@@ -230,8 +230,8 @@ function LayOutPage() {
                     e.preventDefault();
                     e.stopPropagation();
                     dispatch(deleteCampaign(id)).then(() => {
-                      dispatch(successModalFtn());
-                      dispatch(openModalFtn());
+                      // dispatch(delModal());
+                      dispatch(deleteModalFtn());
                       // navigate("/campaign");
                     });
                   }}>
@@ -262,6 +262,8 @@ function LayOutPage() {
                     e.preventDefault();
                     e.stopPropagation();
                     dispatch(deleteModalFtn());
+                    dispatch(openModalFtn());
+                    
                     navigate("/campaign");
                   }}>
                   Go Back to campaign list
